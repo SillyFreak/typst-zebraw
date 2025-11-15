@@ -448,6 +448,7 @@
   let lines-result = ()
 
   // Process each range
+  let line-idx = 1
   for (range-idx, range-spec) in ranges.enumerate() {
     let (start, end, keep-offset) = range-spec
 
@@ -531,6 +532,7 @@
         lines-result.push(
           process-normal-line(
             line,
+            line-idx,
             indent-string,
             display-number,
             body,
@@ -538,6 +540,7 @@
           ),
         )
       }
+      line-idx += 1
     }
 
     // Add separator between ranges (but not after the last range)
@@ -565,12 +568,14 @@
 
         // Add a separator line showing the skip
         lines-result.push((
+          type: "skip",
           indentation: "",
           number: [#text(fill: gray.darken(20%), sym.dots.v)],
           body: text(fill: gray.darken(20%), skip-message),
-          fill: background-color-at-index(background-color, lines-result.len()),
+          fill: background-color-at-index(background-color, line-idx),
           comment: none,
         ))
+        line-idx += 1
       }
     }
   }
