@@ -404,6 +404,7 @@
 /// Process a normal (non-highlighted) line and return line object
 #let process-normal-line(
   line,
+  index,
   indent-string,
   display-number,
   body,
@@ -414,7 +415,7 @@
     indentation: indent-string,
     number: display-number,
     body: body,
-    fill: background-color-at-index(background-color, line.number),
+    fill: background-color-at-index(background-color, index),
     comment: none,
   )
 }
@@ -561,7 +562,7 @@
           // If skip-text is content, use it directly
           skip-text
         }
-        
+
         // Add a separator line showing the skip
         lines-result.push((
           indentation: "",

@@ -26,10 +26,10 @@ Zebraw is a lightweight and fast package for displaying code blocks with line nu
 
 ### Quick Start
 
-Import the `zebraw` package with `#import "@preview/zebraw:0.6.0": *` then add `#show: zebraw` to start using zebraw in the simplest way.
+Import the `zebraw` package with `#import "@preview/zebraw:0.6.1": *` then add `#show: zebraw` to start using zebraw in the simplest way.
 
 ````typ
-#import "@preview/zebraw:0.6.0": *
+#import "@preview/zebraw:0.6.1": *
 #show: zebraw
 
 ```typ
@@ -763,6 +763,33 @@ pub fn fibonacci_reccursive(n: i32) -> u64 {
 #### (Experimental) HTML Export
 
 See [example-html.typ](example-html.typ) or [GitHub Pages](https://hongjr03.github.io/typst-zebraw/) for more information.
+
+To enable HTML export, you need to initialize the HTML styles and scripts using `zebraw-init` at the beginning of your document:
+
+````typ
+#import "@preview/zebraw:0.6.1": zebraw-init
+#show: zebraw-init
+````
+
+You can control whether to include the copy button script by passing the `copy-button` parameter:
+
+````typ
+#show: zebraw-init.with(copy-button: false)  // Disable copy button
+````
+
+In your code blocks, you can control the copy button display per block with the `copy-button` parameter:
+
+````typ
+#zebraw(
+  copy-button: false,  // Hide copy button for this block
+  ```typ
+  #grid(
+    columns: (1fr, 1fr),
+    [Hello], [world!],
+  )
+  ```
+)
+````
 
 ### Customization
 

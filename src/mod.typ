@@ -207,7 +207,7 @@
             radius,
             extend,
             background-color,
-            lines.len(),
+            lines.filter(l => l.type != "comment").len(),
           )
           if footer-cell != none { (grid.footer(repeat: false, footer-cell),) } else { () }
         },
@@ -643,18 +643,16 @@
   /// (Only for HTML) Whether to wrap the code lines.
   /// -> boolean
   wrap: true,
+  /// (Only for HTML) Whether to show the copy button.
+  /// -> boolean
+  copy-button: true,
   /// The body.
   /// -> content
   body,
 ) = context {
   if dictionary(std).keys().contains("html") and std.target() == "html" {
     if counter("zebraw-html-styles").get() == (0,) {
-      zebraw-html-styles()
-      counter("zebraw-html-styles").step()
-    }
-    if counter("zebraw-html-clipboard").get() == (0,) {
-      zebraw-html-clipboard-copy()
-      counter("zebraw-html-clipboard").step()
+      panic("HTML export requires zebraw-init. Add `#show: zebraw-init` at the beginning of your document.")
     }
     show raw: it => {
       show underline: html.elem.with("span", attrs: (class: "underline"))
@@ -686,6 +684,7 @@
       wrap: wrap,
       block-width: block-width,
       numbering-separator: numbering-separator,
+      copy-button: copy-button,
     )
     show raw.where(block: true): zebraw-html-show.with(
       numbering: numbering,
@@ -713,6 +712,7 @@
       wrap: wrap,
       block-width: block-width,
       numbering-separator: numbering-separator,
+      copy-button: copy-button,
     )
 
     body

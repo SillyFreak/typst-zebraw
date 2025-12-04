@@ -71,6 +71,7 @@
   skip-text: "{} lines skipped",
   wrap: true,
   block-width: 42em,
+  copy-button: true,
   it,
 ) = context {
   let (
@@ -188,6 +189,7 @@
   skip-text: "{} lines skipped",
   wrap: true,
   block-width: 42em,
+  copy-button: true,
   it,
 ) = context {
   let (
@@ -520,7 +522,9 @@
       create-lang-label()
     }
 
-    create-copy-button()
+    if copy-button {
+      create-copy-button()
+    }
 
     html.elem("pre", attrs: pre-attrs, {
       html.elem("code", attrs: code-attrs, {
